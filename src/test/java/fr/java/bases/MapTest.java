@@ -11,18 +11,32 @@ import java.util.function.Function;
 
 class MapTest {
 
+    private <T,D> void assertStreamEquals(List<T> originalLst, Function<T,D> function) {
+
+        final List<D> expectedLst = originalLst.stream()
+              .map(function)
+              .toList();
+
+        final List<D> generatedLst = map(originalLst, function);
+
+        assertEquals(expectedLst, generatedLst);
+    }
+
     @Test
-    void testMap() {
+    void testMapSameType() {
 
         final List<Integer> originalLst = Arrays.asList(1, 2, 3);
         final Function<Integer, Integer> squared = i -> (i * i);
 
-        final List<Integer> expectedLst = originalLst.stream()
-              .map(squared)
-              .toList();
+        assertStreamEquals(originalLst, squared);
+    }
 
-        final List<Integer> generatedLst = map(originalLst, squared);
+    @Test
+    void testMapDifferentType() {
 
-        assertEquals(expectedLst, generatedLst);
+        final List<Integer> originalLst = Arrays.asList(1, 2, 3);
+        final Function<Integer, String> numbered = i -> String.format("Item number %d", i);
+
+        assertStreamEquals(originalLst, numbered);
     }
 }

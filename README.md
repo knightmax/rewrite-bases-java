@@ -40,7 +40,7 @@ public static <T> List<T> filter(List<T> originalLst, Predicate<T> predicate)
 ### 2. map
 
 ``` java
-public static <T,D> List<T> map(List<T> originalLst, Function<T,D> function)
+public static <T,D> List<D> map(List<T> originalLst, Function<T,D> function)
 ```
 
 `map` est une projection. On a en entrée une liste de `T` originalLst, et une fonction `function` qui a en entrée un élément de type `T` et en sortie un élément de type `R`. On applique cette fonction à l'ensemble des éléments de la liste et on obtient une nouvelle liste de `R`.
