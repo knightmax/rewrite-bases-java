@@ -1,7 +1,6 @@
 package fr.java.bases;
 
 import static fr.java.bases.Map.map;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
 import org.junit.jupiter.api.Test;
