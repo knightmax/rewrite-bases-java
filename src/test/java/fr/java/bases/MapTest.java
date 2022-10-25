@@ -2,6 +2,7 @@ package fr.java.bases;
 
 import static fr.java.bases.Map.map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +20,7 @@ class MapTest {
 
         final List<D> generatedLst = map(originalLst, function);
 
-        assertEquals(expectedLst, generatedLst);
+        assertIterableEquals(expectedLst, generatedLst);
     }
 
     @Test

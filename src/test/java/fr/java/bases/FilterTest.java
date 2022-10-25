@@ -1,13 +1,13 @@
 package fr.java.bases;
 
 import static fr.java.bases.Filter.filter;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
+
+import org.junit.jupiter.api.Test;
 
 class FilterTest {
 
@@ -19,7 +19,7 @@ class FilterTest {
 
         final List<T> generatedLst = filter(originalLst, predicate);
 
-        assertEquals(expectedLst, generatedLst);
+        assertIterableEquals(expectedLst, generatedLst);
     }
 
     @Test
