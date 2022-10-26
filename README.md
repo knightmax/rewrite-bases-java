@@ -54,3 +54,49 @@ public static <T,D> List<D> flatMap(List<List<T>> originalLst, Function<List<T>,
 
 `flatMap`, tout comme map, elle permet d'appliquer une fonction de mappage, mais produit un flux de nouvelles valeurs. Elle peut être utilisée là où nous devons aplatir ou transformer.
 On a une liste de liste `originalLst` en entrée et une fonction `function` qui est appliquée à chaque élément et la fonction renvoie le nouveau flux `Stream<D>`.
+
+## Et Spring dans tout ça ?
+
+Nous avons vu comment réécrire les fonctions Stream afin de démystifier un peu tout cela.
+Mais quand on travaille avec Spring, les gens parlent de magie.
+Dans cet exercice nous allons tenter de créer un mini framework, que l'on va appeler Summer, qui imitera le principe d'inversion de contrôle (IoC) que l'on connait tous bien.
+Plusieurs versions sont mises à disposition avec des **TODO** indiquant les bouts de code à compléter.
+La structure des projets est également indiquée avec les endroits à modifier. 
+
+### 1. Posons les bases
+
+Dans le package `fr.java.spring.ioc.version1`, vous trouverez une classe `App` qui utilise `PersonService` pour créer et rechercher une personne dans la foulée.
+Il vous faudra utiliser l'injection de dépendance manuellement pour utiliser le Service et exécuter les actions.
+
+```
+version1
+    |_ webapp
+    |   |_ dao
+    |   |   |_ PersonDAO.java
+    |   |   |_ PersonDAOImpl.java
+    |   |_ service
+    |       |_ PersonService.java
+    |       |_ PersonServiceImpl.java
+    |_ App1 (à mettre à jour)
+```
+
+### 2. Ajoutons un peu de contexte
+
+Nous allons introduire la notion de contexte, dans le package `fr.java.spring.ioc.version2` vous trouverez une nouvelle version de la webapp mais également les prémices de notre framework :
+
+```
+version2
+    |_ summer
+    |   |_ context
+    |       |_ ApplicationContext.java (à mettre à jour)
+    |_ webapp
+    |   |_ dao
+    |   |   |_ PersonDAO.java (à mettre à jour)
+    |   |   |_ PersonDAOImpl.java (à mettre à jour)
+    |   |_ service
+    |       |_ PersonService.java (à mettre à jour)
+    |       |_ PersonServiceImpl.java (à mettre à jour)
+    |_ App2 (à mettre à jour)
+```
+
+Il faudra utiliser, dans la classe `ApplicationContext`, de la reflexion et les annotations présentes dans le package `fr.java.spring.ioc.common.annotation` pour trouver tous les Bean candidats à être instanciés et éventuellement les dépendances vers d'autres Bean.  
