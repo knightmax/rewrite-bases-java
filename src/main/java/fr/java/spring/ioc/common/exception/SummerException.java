@@ -1,4 +1,4 @@
-package fr.java.spring.ioc;
+package fr.java.spring.ioc.common.exception;
 
 public class SummerException extends RuntimeException {
 
