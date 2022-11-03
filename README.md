@@ -55,6 +55,35 @@ public static <T,D> List<D> flatMap(List<List<T>> originalLst, Function<List<T>,
 `flatMap`, tout comme map, elle permet d'appliquer une fonction de mappage, mais produit un flux de nouvelles valeurs. Elle peut être utilisée là où nous devons aplatir ou transformer.
 On a une liste de liste `originalLst` en entrée et une fonction `function` qui est appliquée à chaque élément et la fonction renvoie le nouveau flux `Stream<D>`.
 
+### 4. Matchers
+
+Les matchers permettent de déterminer si un ou plusieurs éléments de la liste répondent à un prédicat
+
+#### a. anyMatch
+
+``` java
+public static <T> Boolean anyMatch(List<T> originalLst, Predicate<T> predicate)
+```
+
+`anyMatch` retourne `true` dans le cas où au moins un élément de la liste satisfait le prédicat
+
+#### b. allMatch
+
+``` java
+public static <T> Boolean allMatch(List<T> originalLst, Predicate<T> predicate)
+```
+
+`allMatch` retourne `true` dans le cas où tous les éléments de la liste satisfont le prédicat
+
+#### a. noneMatch
+
+``` java
+public static <T> Boolean noneMatch(List<T> originalLst, Predicate<T> predicate)
+```
+
+`noneMatch` retourne `true` dans le cas où aucun élément de la liste ne satisfait le prédicat
+
+
 ## Et Spring dans tout ça ?
 
 Nous avons vu comment réécrire les fonctions Stream afin de démystifier un peu tout cela.
