@@ -81,7 +81,7 @@ public static <T> Boolean allMatch(List<T> originalLst, Predicate<T> predicate)
 public static <T> Boolean noneMatch(List<T> originalLst, Predicate<T> predicate)
 ```
 
-`noneMatch` retourne `true` dans le cas où aucun élément de la liste ne satisfait le prédicat3
+`noneMatch` retourne `true` dans le cas où aucun élément de la liste ne satisfait le prédicat
 
 ### 3. Miscellaneous Functions
 
