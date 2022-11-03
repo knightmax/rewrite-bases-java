@@ -81,7 +81,62 @@ public static <T> Boolean allMatch(List<T> originalLst, Predicate<T> predicate)
 public static <T> Boolean noneMatch(List<T> originalLst, Predicate<T> predicate)
 ```
 
-`noneMatch` retourne `true` dans le cas où aucun élément de la liste ne satisfait le prédicat
+`noneMatch` retourne `true` dans le cas où aucun élément de la liste ne satisfait le prédicat3
+
+### 3. Miscellaneous Functions
+
+#### a. count
+
+``` java
+public static <T> Long count(List<T> originalLst)
+```
+
+`count` retourne le nombre d'éléments contenus dans la liste
+
+#### b. distinct
+
+``` java
+public static <T> List<T> distinct(List<T> originalLst)
+```
+
+`distinct` retourne une liste contenant les éléments uniques de la liste originale (aka, une liste dédoublonnée). L'unicité doit se faire en fonction de la méthode `Object#equals`
+
+#### c. findAny
+``` java
+public static <T> Optional<T> findAny(List<T> originalLst)
+```
+
+`findAny` retourne un `Optional` contenant n'importe quel élément de la liste originale, ou un `Optional` vide si la liste originale est vide
+
+Le comportement décrit est (tout comme celui de la méthode `java.util.stream.Stream#findAny`) volontairement non-déterministe. Une implémentation de cette méthode est libre d'adopter (ou pas) un comportement déterministe.
+
+#### d. findFirst
+``` java
+public static <T> Optional<T> findFirst(List<T> originalLst)
+```
+
+`findFirst` retourne un `Optional` contenant le premier élément de la liste originale, ou un `Optional` vide si la liste originale est vide
+
+#### e. min/max
+
+``` java
+public static Optional<T> T min(List<T> originalLst, Comparator<? super T> comparator)
+public static Optional<T> T max(List<T> originalLst, Comparator<? super T> comparator)
+```
+
+`min` et `max` retournent un `Optional` contenant respectivement le minimum et le maximum de la liste originale d'après le comparateur fourni, ou un `Optional` si la liste originale est vide
+
+#### f. reduce
+
+``` java
+public static <T> Optional<T> reduce(List<T> orignalLst, BinaryOperator<T> accumulator)
+```
+
+`reduce` retourne un `Optional` contenant le résultat de l'application d'une fonction d'accumulation associative, ou un `Optional` vide si aucune réduction n'est applicable
+
+Pour une liste d'entier contenant les éléments de 1 à 5 (inclusifs) si la fonction d'accumulation est la somme de deux entiers, alors la réduction retournera la somme des entiers de 1 à 5 (15).
+
+Pour donner un autre exemple, si la fonction d'accumulation est le produit de deux entiers, alors la réduction retournera 5! (factorielle de 5 = 120).
 
 
 ## Et Spring dans tout ça ?
