@@ -138,6 +138,30 @@ Pour une liste d'entier contenant les éléments de 1 à 5 (inclusifs) si la fon
 
 Pour donner un autre exemple, si la fonction d'accumulation est le produit de deux entiers, alors la réduction retournera 5! (factorielle de 5 = 120).
 
+### 4. Etape finale
+
+Lorsque l'on utilise les Streams on va forcément être amené à enchainer plusieurs fonctions, on va donc tenter dans le dernier exercice de mélanger tout ça avec un cas concret.
+On va fournir une liste de personnes ayant voyagé dans différentes villes autour du monde, le Stream que l'on va vouloir reproduire doit :
+- filtrer sur les personnes ayant plus de 30 ans, mais moins de 40
+- récupérer la liste des villes visitées
+- réduire à une liste globale et non plus par personne
+- récupérer le pays associé à la ville
+- enlever les doublons
+- trier pas ordre alphabétique
+- sortir le résultat sous la forme d'une liste
+
+La méthode à implémenter a la signature suivante :
+
+``` java
+public static <P,C,S> List<S> fatality(List<P> originalLst,
+          Predicate<P> filterTopLevel,
+          Function<P, List<C>> mapTopLevel,
+          Function<List<C>, Stream<? extends C>> flatMap,
+          Function<C, S> mapSecondLevel,
+          Comparator<S> comparator)
+```
+
+C'est une bonne conclusion pour la partie Stream qui se clôt avec cet exemple.
 
 ## Et Spring dans tout ça ?
 
