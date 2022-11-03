@@ -5,14 +5,27 @@ import java.util.function.Predicate;
 
 public class Matcher {
     public static <T> Boolean anyMatch(List<T> originalLst, Predicate<T> predicate) {
-        throw new NotImplementedException("Please complete fr.java.bases.Matcher#anyMatch");
+        // throw new NotImplementedException("Please complete fr.java.bases.Matcher#anyMatch");
+        for (T item : originalLst) {
+            if (predicate.test(item)) {
+                return true;
+            }
+        }
+        return false;
     }
-
+    
     public static <T> Boolean allMatch(List<T> originalLst, Predicate<T> predicate) {
-        throw new NotImplementedException("Please complete fr.java.bases.Matcher#allMatch");
+        // throw new NotImplementedException("Please complete fr.java.bases.Matcher#allMatch");
+        for (T item : originalLst) {
+            if (!predicate.test(item)) {
+                return false;
+            }
+        }
+        return true;
     }
-
+    
     public static <T> Boolean noneMatch(List<T> originalLst, Predicate<T> predicate) {
-        throw new NotImplementedException("Please complete fr.java.bases.Matcher#noneMatch");
+        // throw new NotImplementedException("Please complete fr.java.bases.Matcher#noneMatch");
+        return !anyMatch(originalLst, predicate);
     }
 }
