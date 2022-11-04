@@ -10,7 +10,7 @@ Une batterie de tests unitaires vous permettra de vérifier que votre code fonct
 
 1. [JDK 17](https://adoptium.net/) minimum
 2. [Maven](https://maven.apache.org/download.cgi)
-3. Un IDE : [Intellij](https://www.jetbrains.com/fr-fr/idea/download/) ou [Eclipse](https://www.eclipse.org/downloads/packages/) voir [VSCode](https://code.visualstudio.com/) 
+3. Un IDE : [Intellij](https://www.jetbrains.com/fr-fr/idea/download/) ou [Eclipse](https://www.eclipse.org/downloads/packages/), voire [VSCode](https://code.visualstudio.com/) 
 
 ## Tester son code
 
@@ -75,7 +75,7 @@ public static <T> Boolean allMatch(List<T> originalLst, Predicate<T> predicate)
 
 `allMatch` retourne `true` dans le cas où tous les éléments de la liste satisfont le prédicat
 
-#### a. noneMatch
+#### c. noneMatch
 
 ``` java
 public static <T> Boolean noneMatch(List<T> originalLst, Predicate<T> predicate)
@@ -83,9 +83,7 @@ public static <T> Boolean noneMatch(List<T> originalLst, Predicate<T> predicate)
 
 `noneMatch` retourne `true` dans le cas où aucun élément de la liste ne satisfait le prédicat
 
-### 3. Miscellaneous Functions
-
-#### a. count
+### 5. count
 
 ``` java
 public static <T> Long count(List<T> originalLst)
@@ -93,7 +91,7 @@ public static <T> Long count(List<T> originalLst)
 
 `count` retourne le nombre d'éléments contenus dans la liste
 
-#### b. distinct
+### 6. distinct
 
 ``` java
 public static <T> List<T> distinct(List<T> originalLst)
@@ -101,7 +99,7 @@ public static <T> List<T> distinct(List<T> originalLst)
 
 `distinct` retourne une liste contenant les éléments uniques de la liste originale (aka, une liste dédoublonnée). L'unicité doit se faire en fonction de la méthode `Object#equals`
 
-#### c. findAny
+### 7. findAny
 ``` java
 public static <T> Optional<T> findAny(List<T> originalLst)
 ```
@@ -110,14 +108,14 @@ public static <T> Optional<T> findAny(List<T> originalLst)
 
 Le comportement décrit est (tout comme celui de la méthode `java.util.stream.Stream#findAny`) volontairement non-déterministe. Une implémentation de cette méthode est libre d'adopter (ou pas) un comportement déterministe.
 
-#### d. findFirst
+### 8. findFirst
 ``` java
 public static <T> Optional<T> findFirst(List<T> originalLst)
 ```
 
 `findFirst` retourne un `Optional` contenant le premier élément de la liste originale, ou un `Optional` vide si la liste originale est vide
 
-#### e. min/max
+### 9. min/max
 
 ``` java
 public static Optional<T> T min(List<T> originalLst, Comparator<? super T> comparator)
@@ -126,7 +124,7 @@ public static Optional<T> T max(List<T> originalLst, Comparator<? super T> compa
 
 `min` et `max` retournent un `Optional` contenant respectivement le minimum et le maximum de la liste originale d'après le comparateur fourni, ou un `Optional` si la liste originale est vide
 
-#### f. reduce
+### 10. reduce
 
 ``` java
 public static <T> Optional<T> reduce(List<T> orignalLst, BinaryOperator<T> accumulator)
@@ -138,7 +136,7 @@ Pour une liste d'entier contenant les éléments de 1 à 5 (inclusifs) si la fon
 
 Pour donner un autre exemple, si la fonction d'accumulation est le produit de deux entiers, alors la réduction retournera 5! (factorielle de 5 = 120).
 
-### 4. Etape finale
+### 11. Etape finale
 
 Lorsque l'on utilise les Streams on va forcément être amené à enchainer plusieurs fonctions, on va donc tenter dans le dernier exercice de mélanger tout ça avec un cas concret.
 On va fournir une liste de personnes ayant voyagé dans différentes villes autour du monde, le Stream que l'on va vouloir reproduire doit :
