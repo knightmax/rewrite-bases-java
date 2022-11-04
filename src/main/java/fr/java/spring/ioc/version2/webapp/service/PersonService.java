@@ -4,7 +4,7 @@ import fr.java.spring.ioc.common.model.Person;
 
 import java.util.UUID;
 
-// TODO annotate ?
+// No annotation necessary on interface type
 public interface PersonService {
 
     UUID save(Person person);

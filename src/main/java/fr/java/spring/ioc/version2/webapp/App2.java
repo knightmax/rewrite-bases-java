@@ -9,9 +9,11 @@ import java.util.UUID;
 
 public class App2 {
 
+    
+    
     public void exec() {
-        final ApplicationContext applicationContext = null; // TODO Instantiate ApplicationContext
-        final PersonService personService = null; // TODO Instantiate PersonService
+        final ApplicationContext applicationContext = new ApplicationContext(this.getClass());
+        final PersonService personService = applicationContext.getBean(PersonService.class);
 
         Person person = DataGenerator.createPerson();
         UUID saved = personService.save(person);
