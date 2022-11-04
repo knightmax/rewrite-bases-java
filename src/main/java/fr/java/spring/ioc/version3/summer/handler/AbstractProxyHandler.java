@@ -14,7 +14,7 @@ public class AbstractProxyHandler {
     }
 
     public boolean isSupported(final Method method) {
-        // TODO Verify that the method supports the annotation handled (isAnnotationPresent)
+        // TODO Verify that the method, directly on the instance, supports the annotation handled (isAnnotationPresent)
         return false;
     }
 

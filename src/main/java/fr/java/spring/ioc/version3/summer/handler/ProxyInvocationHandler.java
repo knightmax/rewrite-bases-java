@@ -9,9 +9,11 @@ import java.lang.reflect.Method;
 public class ProxyInvocationHandler implements InvocationHandler {
 
     private final Object objectToHandle;
+    // TODO Store cacheable handler
 
     public ProxyInvocationHandler(Object objectToHandle) {
         this.objectToHandle = objectToHandle;
+        // TODO Instantiate cacheable handler
     }
 
     @Override
