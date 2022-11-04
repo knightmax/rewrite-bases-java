@@ -1,6 +1,7 @@
 package fr.java.spring.ioc.version3.summer.handler;
 
 import fr.java.spring.ioc.common.annotation.Cacheable;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,10 +22,9 @@ public class CacheableHandler extends AbstractProxyHandler {
     }
 
     public Object getFromCacheOrCompute(final Method method, Object[] args, final Supplier<Object> resultSupplier) {
-        // TODO create a key for the cache
+        var mapKey = List.of(method, List.of(args));
 
-        // TODO use the key to verify if the data is cached or if we have to call the real method
-        return cacheContainers.computeIfAbsent(null, key -> {
+        return cacheContainers.computeIfAbsent(mapKey, key -> {
             logger.info("This is not cached yet.");
             return resultSupplier.get();
         });

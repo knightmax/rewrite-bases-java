@@ -9,14 +9,18 @@ import java.lang.reflect.Method;
 public class ProxyInvocationHandler implements InvocationHandler {
 
     private final Object objectToHandle;
+    private final CacheableHandler cacheableHandler;
 
     public ProxyInvocationHandler(Object objectToHandle) {
         this.objectToHandle = objectToHandle;
+        this.cacheableHandler = new CacheableHandler(objectToHandle);
     }
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) {
-        // TODO is cache supported + cache
+        if(cacheableHandler.isSupported(method)) {
+            return cacheableHandler.getFromCacheOrCompute(method, args, () -> invokeMethod(method, args));
+        }
 
         return invokeMethod(method, args);
     }
