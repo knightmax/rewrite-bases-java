@@ -1,16 +1,19 @@
 package fr.java.spring.ioc.version2.webapp.service;
 
+import fr.java.spring.ioc.common.annotation.Autowired;
+import fr.java.spring.ioc.common.annotation.Component;
 import fr.java.spring.ioc.common.model.Person;
 import fr.java.spring.ioc.version2.webapp.dao.PersonDAO;
 import fr.java.spring.ioc.version2.webapp.dao.PersonDAOImpl;
 
 import java.util.UUID;
 
-// TODO annotate ?
+@Component
 public class PersonServiceImpl implements PersonService {
 
     private final PersonDAO personDAO;
 
+    @Autowired
     public PersonServiceImpl(final PersonDAO personDAO) {
         this.personDAO = personDAO;
     }

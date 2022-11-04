@@ -5,9 +5,19 @@ import java.util.Optional;
 import java.util.function.BinaryOperator;
 
 public class Reduce {
-    
+
     public static <T> Optional<T> reduce(List<T> originalLst, BinaryOperator<T> accumulator) {
-        throw new NotImplementedException("Please complete fr.java.bases.Reduce#reduce");
+        boolean init = false;
+        T value = null;
+        for (T t : originalLst) {
+            if(!init) {
+                init = true;
+                value = t;
+            } else {
+                value = accumulator.apply(value, t);
+            }
+        }
+        return Optional.ofNullable(value);
     }
-    
+
 }

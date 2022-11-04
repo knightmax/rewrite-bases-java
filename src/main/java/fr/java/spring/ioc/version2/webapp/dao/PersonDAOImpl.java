@@ -1,5 +1,6 @@
 package fr.java.spring.ioc.version2.webapp.dao;
 
+import fr.java.spring.ioc.common.annotation.Component;
 import fr.java.spring.ioc.common.model.Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +11,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.UUID;
 
-// TODO annotate ?
+@Component
 public class PersonDAOImpl implements PersonDAO {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PersonDAOImpl.class);

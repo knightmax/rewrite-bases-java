@@ -1,10 +1,16 @@
 package fr.java.spring.ioc.version2.summer.context;
 
+import fr.java.spring.ioc.common.annotation.Autowired;
+import fr.java.spring.ioc.common.annotation.Component;
 import fr.java.spring.ioc.common.exception.SummerException;
 import org.reflections.Reflections;
 
 import java.lang.reflect.Constructor;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @SuppressWarnings("unchecked")
 public class ApplicationContext {
@@ -13,7 +19,7 @@ public class ApplicationContext {
 
     public ApplicationContext(Class<?> applicationClass) {
         final Reflections reflections = new Reflections(applicationClass.getPackage().getName());
-        this.componentBeans = null; // TODO Get component classes, tip: annotations
+        this.componentBeans = new HashSet<>(reflections.getTypesAnnotatedWith(Component.class));
     }
 
     public <T> T getBean(Class<T> clazz) {
@@ -22,11 +28,9 @@ public class ApplicationContext {
     }
 
     private <T> Class<T> getImplementation(Class<T> item) {
-        /**
-         * TODO Get all classes corresponding the Bean we want to instantiate.
-         * We are going to use the corresponding interface to facilitate the classes filtering.
-         */
-        final Set<Class<?>> classes = null;
+        final Set<Class<?>> classes = componentBeans.stream()
+              .filter(componentBean -> List.of(componentBean.getInterfaces()).contains(item))
+              .collect(Collectors.toSet());
 
         if (classes.size() > 1) {
             throw new SummerException("There are more than 1 implementation for " + item.getName());
@@ -54,7 +58,9 @@ public class ApplicationContext {
             return constructors[0];
         }
 
-        final Set<Constructor<T>> constructorsWithAnnotation = null; // TODO Get right constructor
+        final Set<Constructor<T>> constructorsWithAnnotation = Arrays.stream(constructors)
+              .filter(constructor -> constructor.isAnnotationPresent(Autowired.class))
+              .collect(Collectors.toSet());
 
         if (constructorsWithAnnotation.size() > 1) {
             throw new SummerException("More than 1 constructor for " + clazz.getName());
@@ -67,6 +73,8 @@ public class ApplicationContext {
 
     private <T> Object[] getConstructorParameters(Constructor<T> constructor) {
         final Class<?>[] parameterTypes = constructor.getParameterTypes();
-        return null; // TODO What do we need to do to instantiate Bean depending on another Bean ?
+        return Arrays.stream(parameterTypes)
+              .map(this::getBean)
+              .toArray(Object[]::new);
     }
 }
