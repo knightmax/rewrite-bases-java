@@ -3,7 +3,7 @@ package fr.java.spring.ioc.version3.summer.context;
 import fr.java.spring.ioc.common.annotation.Autowired;
 import fr.java.spring.ioc.common.annotation.Component;
 import fr.java.spring.ioc.common.exception.SummerException;
-import fr.java.spring.ioc.version3.summer.handler.ProxyInvocationHandlerSolution;
+import fr.java.spring.ioc.version3.summer.handler.ProxyInvocationHandler;
 import org.reflections.Reflections;
 
 import java.lang.reflect.Constructor;
@@ -52,9 +52,9 @@ public class ApplicationContext {
             final Object proxy = Proxy.newProxyInstance(
                   ApplicationContext.class.getClassLoader(),
                   new Class[]{clazz},
-                  new ProxyInvocationHandlerSolution(bean));
+                  new ProxyInvocationHandler(bean));
 
-            return clazz.cast(proxy);
+            return (T)proxy;
         } catch (Exception e) {
             throw new SummerException("Exception occurred creating bean " + implementation.getName(), e);
         }

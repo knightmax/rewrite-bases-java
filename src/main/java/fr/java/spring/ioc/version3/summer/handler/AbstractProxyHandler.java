@@ -8,7 +8,7 @@ import java.lang.reflect.Method;
 
 public class AbstractProxyHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger(AbstractProxyHandlerSolution.class);
+    private static final Logger logger = LoggerFactory.getLogger(AbstractProxyHandler.class);
 
     private final Object objectToHandle;
     private final Class<? extends Annotation> annotation;
