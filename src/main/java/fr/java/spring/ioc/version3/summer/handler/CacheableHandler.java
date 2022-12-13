@@ -21,6 +21,8 @@ public class CacheableHandler extends AbstractProxyHandler {
     }
 
     public Object getFromCacheOrCompute(final Method method, Object[] args, final Supplier<Object> resultSupplier) {
+        // TODO Maybe start here, it's the mechanic we want to implement
+
         // TODO create a key for the cache
 
         // TODO use the key to verify if the data is cached or if we have to call the real method

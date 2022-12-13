@@ -18,6 +18,7 @@ public class ProxyInvocationHandler implements InvocationHandler {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) {
+        // TODO third step, call the right handler
         // TODO is cache supported + cache
 
         return invokeMethod(method, args);

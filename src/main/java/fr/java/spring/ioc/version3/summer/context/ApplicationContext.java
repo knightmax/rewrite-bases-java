@@ -48,7 +48,7 @@ public class ApplicationContext {
             final T bean = constructor.newInstance(parameters);
 
             /**
-             * TODO create the proxy (Proxy.newProxyInstance) with :
+             * TODO final step, create the proxy (Proxy.newProxyInstance) with :
              * - the classloader
              * - the class we want to implement
              * - and the wrapper of our implementation
