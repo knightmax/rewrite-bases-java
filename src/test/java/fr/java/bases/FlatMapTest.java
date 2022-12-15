@@ -25,7 +25,7 @@ class FlatMapTest {
     }
     
     @Test
-    public void testWithWords() {
+    void testWithWords() {
         List<String> words = Arrays.asList("abc def", "ghi", "jkl mno pqr");
         Function<String, List<String>> function = 
             (String str) -> Arrays.asList( str.split(" ") );
@@ -34,7 +34,7 @@ class FlatMapTest {
     }
     
     @Test
-    public void testWithEmptyList() {
+    void testWithEmptyList() {
         List<String> words = Collections.emptyList();
         Function<String, List<String>> function = 
             (String str) -> Arrays.asList( str.split(" ") );
@@ -42,7 +42,7 @@ class FlatMapTest {
     }
     
     @Test
-    public void testWithDifferentTypes() {
+    void testWithDifferentTypes() {
         List<String> numbers = Arrays.asList("123,456,789", "101112", "1314,1516");
         Function<String, List<Integer>> function = 
             (String str) -> {

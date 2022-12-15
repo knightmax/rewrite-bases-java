@@ -49,11 +49,11 @@ On applique cette fonction à l'ensemble des éléments de la liste et on obtien
 ### 3. flatMap
 
 ``` java
-public static <T,D> List<D> flatMap(List<List<T>> originalLst, Function<List<T>, Stream<? extends D>> function)
+public static <T,D> List<D> flatMap(List<T> originalLst, Function<T, List<D>> function)
 ```
 
 `flatMap`, tout comme map, elle permet d'appliquer une fonction de mappage, mais produit un flux de nouvelles valeurs. Elle peut être utilisée là où nous devons aplatir ou transformer.
-On a une liste de liste `originalLst` en entrée et une fonction `function` qui est appliquée à chaque élément et la fonction renvoie le nouveau flux `Stream<D>`.
+On a une liste de liste `originalLst` en entrée et une fonction `function` qui est appliquée à chaque élément et la fonction renvoie la nouvelle liste `List<D>`.
 
 ### 4. Matchers
 
