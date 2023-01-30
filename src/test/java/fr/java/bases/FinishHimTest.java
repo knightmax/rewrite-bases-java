@@ -42,7 +42,7 @@ class FinishHimTest {
         final List<String> generatedLst = FinishHim.fatality(persons,
               filterPersons,
               mapVisitedCities,
-              flatMapCities,
+              item -> flatMapCities.apply(item).toList(),
               mapCountry,
               comparator);
 
