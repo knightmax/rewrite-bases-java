@@ -7,14 +7,13 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 public class FinishHim {
 
     public static <P,C,S> List<S> fatality(List<P> originalLst,
           Predicate<P> filterTopLevel,
           Function<P, List<C>> mapTopLevel,
-          Function<List<C>, Stream<? extends C>> flatMap,
+          Function<List<C>, List<? extends C>> flatMap,
           Function<C, S> mapSecondLevel,
           Comparator<S> comparator) {
 
