@@ -1,23 +1,23 @@
 package fr.java.spring.ioc.version3;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.mockito.Mockito.any;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Date;
+import java.util.UUID;
+
+import org.junit.jupiter.api.Test;
+
 import fr.java.spring.ioc.common.model.Person;
-import fr.java.spring.ioc.version3.summer.handler.ProxyInvocationHandler;
+import fr.java.spring.ioc.version3.summer.handler.Caching;
 import fr.java.spring.ioc.version3.webapp.App3;
 import fr.java.spring.ioc.version3.webapp.dao.PersonDAO;
 import fr.java.spring.ioc.version3.webapp.service.PersonService;
 import fr.java.spring.ioc.version3.webapp.service.PersonServiceImpl;
-import org.junit.jupiter.api.Test;
-
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
 
 class App3Test {
 
@@ -29,9 +29,9 @@ class App3Test {
         return personDAO;
     }
 
-    private static ProxyInvocationHandler initProxy(PersonDAO personDAO) {
+    private static PersonService initProxy(PersonDAO personDAO) {
         PersonService personService = new PersonServiceImpl(personDAO);
-        return new ProxyInvocationHandler(personService);
+        return Caching.getCachingProxy(personService, PersonService.class);
     }
 
     @Test
@@ -43,14 +43,13 @@ class App3Test {
     @Test
     void testCache() throws NoSuchMethodException {
         PersonDAO personDAO = mockPersonDAO();
-        ProxyInvocationHandler proxy = initProxy(personDAO);
-
-        proxy.invoke(null, PersonService.class.getMethod("findById", UUID.class), List.of(ID).toArray());
-        proxy.invoke(null, PersonService.class.getMethod("findById", UUID.class), List.of(ID).toArray());
-        proxy.invoke(null, PersonService.class.getMethod("findById", UUID.class), List.of(ID).toArray());
-        proxy.invoke(null, PersonService.class.getMethod("findById", UUID.class), List.of(ID).toArray());
-        proxy.invoke(null, PersonService.class.getMethod("findById", UUID.class), List.of(ID).toArray());
-        proxy.invoke(null, PersonService.class.getMethod("findById", UUID.class), List.of(ID).toArray());
+        PersonService service = initProxy(personDAO);
+        
+        service.findById(ID);
+        service.findById(ID);
+        service.findById(ID);
+        service.findById(ID);
+        service.findById(ID);
 
         verify(personDAO, times(1)).findById(any(UUID.class));
     }
@@ -58,12 +57,12 @@ class App3Test {
     @Test
     void testInnerMethodCacheIgnored() throws NoSuchMethodException {
         PersonDAO personDAO = mockPersonDAO();
-        ProxyInvocationHandler proxy = initProxy(personDAO);
-
-        proxy.invoke(null, PersonService.class.getMethod("findByIdButWithInnerMethodCall", UUID.class), List.of(ID).toArray());
-        proxy.invoke(null, PersonService.class.getMethod("findByIdButWithInnerMethodCall", UUID.class), List.of(ID).toArray());
-        proxy.invoke(null, PersonService.class.getMethod("findByIdButWithInnerMethodCall", UUID.class), List.of(ID).toArray());
-
+        PersonService service = initProxy(personDAO);
+        
+        service.findByIdButWithInnerMethodCall(ID);
+        service.findByIdButWithInnerMethodCall(ID);
+        service.findByIdButWithInnerMethodCall(ID);
+        
         verify(personDAO, times(3)).findById(any(UUID.class));
     }
 }

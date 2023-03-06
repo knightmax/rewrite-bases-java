@@ -3,6 +3,9 @@ package fr.java.spring.ioc.version3.summer.context;
 import fr.java.spring.ioc.common.annotation.Autowired;
 import fr.java.spring.ioc.common.annotation.Component;
 import fr.java.spring.ioc.common.exception.SummerException;
+import fr.java.spring.ioc.version3.summer.handler.Caching;
+import fr.java.spring.ioc.version3.summer.handler.Logging;
+
 import org.reflections.Reflections;
 
 import java.lang.reflect.Constructor;
@@ -24,7 +27,14 @@ public class ApplicationContext {
 
     public <T> T getBean(Class<T> clazz) {
         final Class<T> implementation = getImplementation(clazz);
-        return createBean(clazz, implementation);
+        Object bean = createBean(implementation);
+        
+        // TODO: wrap bean with AOP Logging
+        Object proxyBean = Logging.getLoggingProxy(bean, clazz);
+        // TODO: wrap bean with AOP Caching
+        proxyBean = Caching.getCachingProxy(proxyBean, clazz);
+        
+        return clazz.cast( proxyBean );
     }
 
     private <T> Class<T> getImplementation(Class<T> item) {
@@ -41,21 +51,11 @@ public class ApplicationContext {
               .orElseThrow(() -> new SummerException("No valid candidate for bean " + item));
     }
 
-    private <T> T createBean(Class<T> clazz, Class<T> implementation) {
+    private <T> T createBean(Class<T> implementation) {
         try {
             final Constructor<T> constructor = getConstructor(implementation);
             final Object[] parameters = getConstructorParameters(constructor);
-            final T bean = constructor.newInstance(parameters);
-
-            /**
-             * TODO final step, create the proxy (Proxy.newProxyInstance) with :
-             * - the classloader
-             * - the class we want to implement
-             * - and the wrapper of our implementation
-             */
-            final Object proxy = null;
-
-            return null; // TODO cast the created object
+            return constructor.newInstance(parameters);
         } catch (Exception e) {
             throw new SummerException("Exception occurred creating bean " + implementation.getName(), e);
         }
